@@ -19,3 +19,11 @@ Press 'm' |  Modify mode, click and move your mouse to draw lines inside the gri
 Double Left Click | Add goal
 Right Click | Add start
 Press 'c' | Start the A* alghorithm
+
+# Future Aims
+I think I will expand the application in order to visualize:
+- BFS
+- DFS
+- IDA
+- IDA*
+- Other graph searching alghorithms
