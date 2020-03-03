@@ -2,7 +2,7 @@
 A simple Python TK interface for visualizing the A* alghorithm
 
 
-<img src="./images/preview.gif" width="300"><img src="./images/preview2.gif" width="300">
+<img src="./images/preview.gif" width="300"><img src="./images/preview3.gif" width="300">
 
 # How to use
 First install tkinter
