@@ -1,9 +1,9 @@
 from math import sqrt
 
 class Maze:
-    def __init__(self, size):
+    def __init__(self, size, starting_value = "0"):
         self.size = size
-        self.maze = [["0" for x in range(size)] for y in range(size)]
+        self.maze = [[starting_value for x in range(size)] for y in range(size)]
     
     def showMaze(self):
         for y in range(self.size):
@@ -19,19 +19,19 @@ class Maze:
 
     def setPath(self, cell):
         (x, y) = cell
-        self.maze[y][x] = "1"
+        self.maze[x][y] = "1"
 
     def isWall(self, cell):
         (x,y) = cell
-        return (self.maze[y][x] is "X")
+        return (self.maze[x][y] == "X")
     
     def addWall(self, cell):
         (x, y) = cell
-        self.maze[y][x] = "X"
+        self.maze[x][y] = "X"
 
     def addStart(self, cell):
         (x, y) = cell
-        self.maze[y][x] = "A"
+        self.maze[x][y] = "A"
 
     def heuristic(self, start, finish):
         (x1, y1) = start
@@ -40,7 +40,7 @@ class Maze:
     
     def addFinish(self, cell):
         (x, y) = cell
-        self.maze[y][x] = "S"
+        self.maze[x][y] = "S"
 
     def getWeight(self, cell1, cell2):
         cell = (abs(cell1[0] - cell2[0]), abs(cell1[1] - cell2[1]))
@@ -51,17 +51,25 @@ class Maze:
     
     def setEmpty(self, cell):
         (x, y) = cell
-        self.maze[y][x] = "0"
+        self.maze[x][y] = "0"
 
     def reset(self):
         for x in range(self.size):
             for y in range(self.size):
                 self.setEmpty((x,y))
 
+    def isEmpty(self, cell):
+        (x, y) = cell
+        return self.maze[x][y] == "0"
+
     def getNeighbor(self, cell):
         (x, y) = cell
         neighbor = [(x+1,y),(x,y+1),(x-1,y),(x,y-1),(x+1,y-1),(x-1,y+1),(x+1, y+1),(x-1,y-1)]
         neighbor = [element for element in neighbor if not self.isBorder(element) and not self.isWall(element)]
         return neighbor
+
+ 
+
+           
 
 

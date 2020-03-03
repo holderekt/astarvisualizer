@@ -2,7 +2,11 @@
 A simple Python TK interface for visualizing the A* alghorithm
 
 
-<img src="./images/preview.gif" width="300"><img src="./images/preview3.gif" width="300">
+<img src="./images/modifymode.gif" width="300">
+<img src="./images/prim.gif" width="300">
+<div style="text-align:center">
+<img src="./images/astar.gif" width="300">
+</div>
 
 # How to use
 First install tkinter
@@ -21,6 +25,8 @@ Double Left Click | Add goal
 Right Click | Add start
 Press 'c' | Start the A* alghorithm
 Press 'r' | Clear the board
+Press 'g' | Automatically generate new labyrinth using Prim's alghorithm
+
 
 # Future Aims
 I think I will expand the application in order to visualize:

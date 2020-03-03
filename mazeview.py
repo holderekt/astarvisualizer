@@ -2,6 +2,7 @@ import tkinter
 import maze as mazelib
 import astarsearch as asslib
 from queue import PriorityQueue
+from primmazegenerator import randomizedPrim
 import sys
 
 
@@ -121,6 +122,15 @@ class MazeCanvas:
             for y in range(self.size):
                 self.board[x][y].reset()
 
+    def randomBoard(self, maze):
+        maze.showMaze()
+        for x in range (maze.size):
+            for y in range(maze.size):
+                if maze.maze[x][y] == "X":
+                    self.setWall((x,y))
+
+
+
 
 class MazeWindowController:
     def __init__(self, title, maze):  
@@ -187,6 +197,13 @@ class MazeWindowController:
             self.maze.reset()
             self.canvas.reset()
 
+        if(event.char == 'g'):
+            self.maze = randomizedPrim(self.maze.size, (0,0))
+            self.maze.showMaze()
+            self.editModeOn = False
+            self.canvas.reset()
+            self.canvas.randomBoard(self.maze)
+
     def show(self):
         self.window.mainloop()
 
@@ -194,11 +211,12 @@ class MazeWindowController:
 
 def main():
     if(len(sys.argv) != 2 or sys.argv[1] is None):
-        size = 20
+        size = 21
     else:
         size = int(sys.argv[1])
 
     maze = mazelib.Maze(size)
+    
     window = MazeWindowController("A* Visualizer", maze)
     window.show()
 
