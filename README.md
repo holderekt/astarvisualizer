@@ -24,6 +24,7 @@ Right Click | Add start
 Press 'c' | Start the A* alghorithm
 Press 'r' | Clear the board
 Press 'g' | Automatically generate new labyrinth using Prim's alghorithm
+Press 'd' | Enable / Disable diagonal path searching (Default = False). This value is reset to False every time you press 'g'
 
 
 # Future Aims

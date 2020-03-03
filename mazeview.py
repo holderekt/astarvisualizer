@@ -124,6 +124,8 @@ class MazeCanvas:
 
     def randomBoard(self, maze):
         maze.showMaze()
+        self.setStart(maze.start)
+        self.setFinish(maze.finish)
         for x in range (maze.size):
             for y in range(maze.size):
                 if maze.maze[x][y] == "X":
@@ -196,10 +198,14 @@ class MazeWindowController:
             self.editModeOn = False
             self.maze.reset()
             self.canvas.reset()
+        
+        if(event.char == 'd'):
+            self.maze.setDiagonalPath()
 
         if(event.char == 'g'):
             self.maze = randomizedPrim(self.maze.size, (0,0))
-            self.maze.showMaze()
+            self.maze.addStart((0,0))
+            self.maze.addFinish((self.maze.size -1, self.maze.size -1))
             self.editModeOn = False
             self.canvas.reset()
             self.canvas.randomBoard(self.maze)

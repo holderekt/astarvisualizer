@@ -3,8 +3,14 @@ from math import sqrt
 class Maze:
     def __init__(self, size, starting_value = "0"):
         self.size = size
+        self.diagonalPath = False
+        self.start = None
+        self.finish =  None
         self.maze = [[starting_value for x in range(size)] for y in range(size)]
     
+    def setDiagonalPath(self):
+        self.diagonalPath = not self.diagonalPath
+
     def showMaze(self):
         for y in range(self.size):
             for x in range(self.size):
@@ -31,6 +37,7 @@ class Maze:
 
     def addStart(self, cell):
         (x, y) = cell
+        self.start = cell
         self.maze[x][y] = "A"
 
     def heuristic(self, start, finish):
@@ -40,6 +47,7 @@ class Maze:
     
     def addFinish(self, cell):
         (x, y) = cell
+        self.finish = cell
         self.maze[x][y] = "S"
 
     def getWeight(self, cell1, cell2):
@@ -64,7 +72,10 @@ class Maze:
 
     def getNeighbor(self, cell):
         (x, y) = cell
-        neighbor = [(x+1,y),(x,y+1),(x-1,y),(x,y-1),(x+1,y-1),(x-1,y+1),(x+1, y+1),(x-1,y-1)]
+        if(self.diagonalPath):
+            neighbor = [(x+1,y),(x,y+1),(x-1,y),(x,y-1)]
+        else:
+            neighbor = [(x+1,y),(x,y+1),(x-1,y),(x,y-1),(x+1,y-1),(x-1,y+1),(x+1, y+1),(x-1,y-1)]
         neighbor = [element for element in neighbor if not self.isBorder(element) and not self.isWall(element)]
         return neighbor
 
