@@ -53,6 +53,11 @@ class Maze:
         (x, y) = cell
         self.maze[y][x] = "0"
 
+    def reset(self):
+        for x in range(self.size):
+            for y in range(self.size):
+                self.setEmpty((x,y))
+
     def getNeighbor(self, cell):
         (x, y) = cell
         neighbor = [(x+1,y),(x,y+1),(x-1,y),(x,y-1),(x+1,y-1),(x-1,y+1),(x+1, y+1),(x-1,y-1)]

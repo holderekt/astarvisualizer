@@ -11,7 +11,7 @@ Start the application from command line with:
 python mazeview.py <size>
 ```
 The size is the number of squares on each side of the grid. The default value is 20.  
-This application is not finished. If you want to clear the grid you have to restart the application. I have still to insert some error control, if there is no start or finish the application will probably crash. 
+I have still to insert some error control, if there is no start or finish the application will probably crash. 
 You can click more than one time on the grid when inserting start and finish points, the old point will be removed.
 
 Command | Result  
@@ -20,6 +20,7 @@ Press 'm' |  Modify mode, click and move your mouse to draw lines inside the gri
 Double Left Click | Add goal
 Right Click | Add start
 Press 'c' | Start the A* alghorithm
+Press 'r' | Clear the board
 
 # Future Aims
 I think I will expand the application in order to visualize:

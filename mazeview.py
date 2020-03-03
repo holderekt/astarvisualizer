@@ -28,6 +28,7 @@ class Rectangle:
 class MazeCanvas:
     def __init__(self, size ,window, width, height):
         self.window = window
+        self.size = size
         self.canvas = tkinter.Canvas(self.window, width=width, height=height, highlightthickness=0, background='#fbfef9')
         self.canvas.pack(side='left')
         self.board = None
@@ -94,6 +95,9 @@ class MazeCanvas:
 
         if(self.path_counter < len(self.path)):
             self.window.after(50, self.updatePath)
+        else:
+            self.path_counter = 0
+            self.path = None
 
     def updateVisited(self):
         position = self.visited[self.visited_counter]
@@ -104,9 +108,18 @@ class MazeCanvas:
             self.board[y][x].changeFill('gray')
 
         if self.visited_counter == len(self.visited):
+            self.visited_counter = 0
+            self.visited = None
             self.updatePath()
         else:
             self.window.after(10, self.updateVisited)
+
+    def reset(self):
+        self.finish = (-1,-1)
+        self.start = (-1,-1)
+        for x in range(self.size):
+            for y in range(self.size):
+                self.board[x][y].reset()
 
 
 class MazeWindowController:
@@ -168,6 +181,11 @@ class MazeWindowController:
             for item in path:
                 self.maze.setPath(item)
             self.canvas.generatePath(path, closed_list)
+
+        if(event.char == 'r'):
+            self.editModeOn = False
+            self.maze.reset()
+            self.canvas.reset()
 
     def show(self):
         self.window.mainloop()
