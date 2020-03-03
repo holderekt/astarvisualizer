@@ -5,9 +5,10 @@ A simple Python TK interface for visualizing the A* alghorithm
 <img src="./images/preview.gif" width="300">
 
 # How to use
+First install tkinter
 Start the application from command line with:
 ```bash
-python astarvisualizer.py <size>
+python mazeview.py <size>
 ```
 The size is the number of squares on each side of the grid. The default value is 20.  
 This application is not finished. If you want to clear the grid you have to restart the application. I have still to insert some error control, if there is no start or finish the application will probably crash. 
