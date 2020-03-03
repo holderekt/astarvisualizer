@@ -43,7 +43,11 @@ class Maze:
         self.maze[y][x] = "S"
 
     def getWeight(self, cell1, cell2):
-        return 1
+        cell = (abs(cell1[0] - cell2[0]), abs(cell1[1] - cell2[1]))
+        if cell == (1,1):
+            return 1.42
+        else:
+            return 1
     
     def setEmpty(self, cell):
         (x, y) = cell
@@ -55,14 +59,4 @@ class Maze:
         neighbor = [element for element in neighbor if not self.isBorder(element) and not self.isWall(element)]
         return neighbor
 
-
-
-
-
-
-
-
-       
-    
-            
 
