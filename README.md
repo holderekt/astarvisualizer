@@ -2,9 +2,7 @@
 A simple Python TK interface for visualizing the A* alghorithm
 
 
-<img src="./images/modifymode.gif" width="300">
-<img src="./images/prim.gif" width="300">
-<div style="text-align:center">
+<img src="./images/modifymode.gif" width="300"><img src="./images/prim.gif" width="300"><div style="text-align:center">
 <img src="./images/astar.gif" width="300">
 </div>
 
