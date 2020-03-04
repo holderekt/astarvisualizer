@@ -27,10 +27,11 @@ class Rectangle:
 
 
 class MazeCanvas:
-    def __init__(self, size ,window, width, height):
+    def __init__(self, window, height,  width):
         self.window = window
-        self.size = size
-        self.canvas = tkinter.Canvas(self.window, width=width, height=height, highlightthickness=0, background='#fbfef9')
+        self.height = height
+        self.width = width
+        self.canvas = tkinter.Canvas(self.window, width=self.width*25+1, height=self.width*25+1, highlightthickness=1, background='#fbfef9')
         self.canvas.pack(side='left')
         self.board = None
         
@@ -43,33 +44,34 @@ class MazeCanvas:
         self.finish = (-1,-1)
         self.start = (-1,-1)
     
-        self.generateBoard(size)
+        self.generateBoard()
 
     
-    def generateBoard(self, size):
-        self.board = [[None for x in range(size)] for y in range(size)]
-        for x in range(size):
-            for y in range(size):
-                rect = Rectangle(self.canvas,x*25,y*25, (x*25+25), (y*25+25))
+    def generateBoard(self):
+        self.board = [[None for x in range(self.width)] for y in range(self.height)]
+
+        for x in range(self.height):
+            for y in range(self.width):
+                rect = Rectangle(self.canvas,y*25,x*25, (y*25+25), (x*25+25))
                 rect.changeOutline('black')
                 self.board[x][y] = rect
 
     def setWall(self, position):
         (x,y) = position
-        self.board[y][x].changeFill('#191923')
+        self.board[x][y].changeFill('#191923')
                          
     def setStart(self, position):
         x,y = position
         oldx,oldy = self.start
-        self.board[oldy][oldx].reset()
-        self.board[y][x].changeFill('#44cf6c')
+        self.board[oldx][oldy].reset()
+        self.board[x][y].changeFill('#44cf6c')
         self.start = (x,y)
 
     def setFinish(self,position):
         x,y = position
         oldx,oldy = self.finish
-        self.board[oldy][oldx].reset()
-        self.board[y][x].changeFill('#ff8484')
+        self.board[oldx][oldy].reset()
+        self.board[x][y].changeFill('#ff8484')
         self.finish = (x,y)
 
     def generatePath(self, path, closed_list):
@@ -92,7 +94,7 @@ class MazeCanvas:
 
         if not self.isStart(position) and not self.isFinish(position):
             x,y = position
-            self.board[y][x].changeFill('yellow')
+            self.board[x][y].changeFill('yellow')
 
         if(self.path_counter < len(self.path)):
             self.window.after(50, self.updatePath)
@@ -106,7 +108,7 @@ class MazeCanvas:
 
         if not self.isStart(position) and not self.isFinish(position):
             x,y = position
-            self.board[y][x].changeFill('gray')
+            self.board[x][y].changeFill('gray')
 
         if self.visited_counter == len(self.visited):
             self.visited_counter = 0
@@ -118,16 +120,16 @@ class MazeCanvas:
     def reset(self):
         self.finish = (-1,-1)
         self.start = (-1,-1)
-        for x in range(self.size):
-            for y in range(self.size):
+        for x in range(self.height):
+            for y in range(self.width):
                 self.board[x][y].reset()
 
     def randomBoard(self, maze):
         maze.showMaze()
         self.setStart(maze.start)
         self.setFinish(maze.finish)
-        for x in range (maze.size):
-            for y in range(maze.size):
+        for x in range (maze.height):
+            for y in range(maze.width):
                 if maze.maze[x][y] == "X":
                     self.setWall((x,y))
 
@@ -137,10 +139,10 @@ class MazeCanvas:
 class MazeWindowController:
     def __init__(self, title, maze):  
         self.maze = maze
-        self.width, self.height = self.generateWindowSize(maze)
+        self.height, self.width = self.generateWindowSize(maze)
         self.window = tkinter.Tk()
         self.window.title(title)
-        self.canvas = MazeCanvas(self.maze.size, self.window, self.width, self.height)
+        self.canvas = MazeCanvas(self.window, self.maze.height, self.maze.width)
         self.configureWindow()
         self.configureBinding()
         self.editModeOn = False
@@ -178,11 +180,11 @@ class MazeWindowController:
         self.maze.addFinish(position)
         self.canvas.setFinish(position)
 
-    def generateSize(self, width, height):
-        return str(width)+"x"+str(height)
+    def generateSize(self, height, width):
+        return str(height)+"x"+str(width)
 
     def generateWindowSize(self, maze):
-        return (self.maze.size * 25 + 1, self.maze.size * 25 + 1)
+        return (self.maze.height * 25 + 1, self.maze.width * 25 + 1)
 
     def keyPressed(self, event):
         if(event.char == 'm'):
@@ -203,9 +205,9 @@ class MazeWindowController:
             self.maze.setDiagonalPath()
 
         if(event.char == 'g'):
-            self.maze = randomizedPrim(self.maze.size, (0,0))
+            self.maze = randomizedPrim(self.maze.height, self.maze.width, (0,0))
             self.maze.addStart((0,0))
-            self.maze.addFinish((self.maze.size -1, self.maze.size -1))
+            self.maze.addFinish((self.maze.height -1, self.maze.width -1))
             self.editModeOn = False
             self.canvas.reset()
             self.canvas.randomBoard(self.maze)
@@ -216,13 +218,13 @@ class MazeWindowController:
 
 
 def main():
-    if(len(sys.argv) != 2 or sys.argv[1] is None):
-        size = 21
-    else:
-        size = int(sys.argv[1])
+    height = 27
+    width = 37
+    if(len(sys.argv) == 3):
+        height = int(sys.argv[1])
+        width = int(sys.argv[2])
 
-    maze = mazelib.Maze(size)
-    
+    maze = mazelib.Maze(height, width)
     window = MazeWindowController("A* Visualizer", maze)
     window.show()
 

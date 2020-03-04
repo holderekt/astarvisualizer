@@ -6,16 +6,20 @@ rand.seed(datetime.now())
 
 
 def getFrontier(maze, cell):
-    (x, y) = cell
-    neighbor = [(x+2,y),(x,y+2),(x-2,y),(x,y-2)]
-    neighbor = [element for element in neighbor if not maze.isBorder(element) and maze.isWall(element)]
-    return neighbor
+    if(not maze.isBorder(cell)):
+        (x, y) = cell
+        neighbor = [(x+2,y),(x,y+2),(x-2,y),(x,y-2)]
+        neighbor = [element for element in neighbor if not maze.isBorder(element) and maze.isWall(element)]
+        return neighbor
+    return []
 
 def getConnector(maze, cell):
-    (x, y) = cell
-    neighbor = [(x+2,y),(x,y+2),(x-2,y),(x,y-2)]
-    neighbor = [element for element in neighbor if not maze.isBorder(element) and not maze.isWall(element)]
-    return neighbor
+    if(not maze.isBorder(cell)):
+        (x, y) = cell
+        neighbor = [(x+2,y),(x,y+2),(x-2,y),(x,y-2)]
+        neighbor = [element for element in neighbor if not maze.isBorder(element) and not maze.isWall(element)]
+        return neighbor
+    return []
 
 def setPassage(maze, cell1, cell2):
     x1,y1 = cell1
@@ -36,9 +40,8 @@ def setPassage(maze, cell1, cell2):
             maze.setEmpty((x1-1,y1))
 
 
-
-def randomizedPrim(size, starting_point):
-    maze = Maze(size, "X")
+def randomizedPrim(height, width, starting_point):
+    maze = Maze(height, width, "X")
     maze.setEmpty(starting_point)
     frontiera = getFrontier(maze, starting_point)
     

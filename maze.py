@@ -1,25 +1,26 @@
 from math import sqrt
 
 class Maze:
-    def __init__(self, size, starting_value = "0"):
-        self.size = size
+    def __init__(self, height, width, starting_value = "0"):
+        self.width = width
+        self.height = height
         self.diagonalPath = False
         self.start = None
         self.finish =  None
-        self.maze = [[starting_value for x in range(size)] for y in range(size)]
+        self.maze = [[starting_value for x in range(self.width)] for y in range(self.height)]
     
     def setDiagonalPath(self):
         self.diagonalPath = not self.diagonalPath
 
     def showMaze(self):
-        for y in range(self.size):
-            for x in range(self.size):
+        for x in range(self.height):
+            for y in range(self.width):
                 print(self.maze[x][y], end = "")
             print("")
     
     def isBorder(self, cell):
         (x, y) = cell
-        if x < 0 or x >= self.size or y < 0 or y >= self.size:
+        if x < 0 or x >= self.height or y < 0 or y >= self.width:
             return True
         return False
 
@@ -62,8 +63,8 @@ class Maze:
         self.maze[x][y] = "0"
 
     def reset(self):
-        for x in range(self.size):
-            for y in range(self.size):
+        for x in range(self.height):
+            for y in range(self.width):
                 self.setEmpty((x,y))
 
     def isEmpty(self, cell):
@@ -72,15 +73,11 @@ class Maze:
 
     def getNeighbor(self, cell):
         (x, y) = cell
-        if(self.diagonalPath):
-            neighbor = [(x+1,y),(x,y+1),(x-1,y),(x,y-1)]
-        else:
-            neighbor = [(x+1,y),(x,y+1),(x-1,y),(x,y-1),(x+1,y-1),(x-1,y+1),(x+1, y+1),(x-1,y-1)]
-        neighbor = [element for element in neighbor if not self.isBorder(element) and not self.isWall(element)]
-        return neighbor
-
- 
-
-           
-
-
+        if(not self.isBorder(cell)):
+            if(self.diagonalPath):
+                neighbor = [(x+1,y),(x,y+1),(x-1,y),(x,y-1)]
+            else:
+                neighbor = [(x+1,y),(x,y+1),(x-1,y),(x,y-1),(x+1,y-1),(x-1,y+1),(x+1, y+1),(x-1,y-1)]
+            neighbor = [element for element in neighbor if not self.isBorder(element) and not self.isWall(element)]
+            return neighbor
+        return []
