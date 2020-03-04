@@ -10,9 +10,9 @@ A simple Python TK interface for visualizing the A* alghorithm
 First install tkinter
 Start the application from command line with:
 ```bash
-python mazeview.py <size>
+python mazeview.py <heigth> <width>
 ```
-The size is the number of squares on each side of the grid. The default value is 20.  
+The size is the number of squares on each side of the grid. The default value is 27x37.  
 I have still to insert some error control, if there is no start or finish the application will probably crash. 
 You can click more than one time on the grid when inserting start and finish points, the old point will be removed.
 
