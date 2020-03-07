@@ -142,6 +142,8 @@ class MazeWindowController:
         self.maze = maze
         self.height, self.width = self.generateWindowSize(maze)
         self.window = tkinter.Tk()
+        photo = tkinter.PhotoImage(file="./images/icon.png")
+        self.window.iconphoto(False, photo)
         self.window.title(title)
         self.canvas = MazeCanvas(self.window, self.maze.height, self.maze.width, self.rect_size)
         self.configureWindow()

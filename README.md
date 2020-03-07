@@ -1,18 +1,20 @@
 # A* Visualizer
-A simple Python TK interface for visualizing the A* alghorithm
+A simple Python TK interface for visualizing the A* alghorithm and Prim's alghorithm for maze generation.
 
 
 <img src="./images/modifymode.gif" width="300"> <img src="./images/prim.gif" width="300">
 <img src="./images/astar.gif" width="300"> <img src="./images/example.gif" width="300">
 
+# Dependencies
+- Tkinter
+- Python 3
 
 # How to use
-First install tkinter
-Start the application from command line with:
+Start the application from command line with (make asvisual.sh executable):
 ```bash
-python mazeview.py <heigth> <width> <square size>
+./asvisual.sh <heigth> <width> <square size>
 ```
-The size is the number of squares on each side of the grid. The default value is 27x37.  
+The size is the number of squares on each side of the grid. The default value is 27x37. The square size is the number of pixel in the squares sides. The default size is 25.
 I have still to insert some error control, if there is no start or finish the application will probably crash. 
 You can click more than one time on the grid when inserting start and finish points, the old point will be removed.
 
